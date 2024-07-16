@@ -1,5 +1,5 @@
-use axum::{routing::get, Router, Json};
 use axum::routing::post;
+use axum::{routing::get, Json, Router};
 use serde::{Deserialize, Serialize};
 use tower_http::cors::{Any, CorsLayer};
 
