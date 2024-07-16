@@ -27,20 +27,17 @@ jobs:
           working-directory: backend
           deploy-key: ${{ secrets.SHUTTLE_API_KEY }}
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '20.9.0'
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-        working-directory: frontend
+          node-version: 20
       - name: Install dependencies
         run: npm install
         working-directory: frontend
 #      - name: Test
-#        run: npm test -- --watch=false --browsers=ChromeHeadless
+#        run: npm test:ci
 #        working-directory: frontend
       - name: Build
-        run: ng build --configuration production
+        run: npm run build:ci
         working-directory: frontend
 #      - name: Deploy to Netlify
 #        uses: nwtgck/actions-netlify@v3.0
