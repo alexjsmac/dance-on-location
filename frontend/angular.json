@@ -31,6 +31,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -57,7 +63,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "dol_frontend:build:production"
+              "buildTarget": "dol_frontend:build:production",
+              "browserTarget": "dol_frontend:build:production"
             },
             "development": {
               "buildTarget": "dol_frontend:build:development"
