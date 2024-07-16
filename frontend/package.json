@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "deploy": "ng build --configuration production && cd ../backend && cargo shuttle deploy --ad"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {

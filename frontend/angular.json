@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dol_frontend": {
+    "dance_on_location": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/dol_frontend",
+            "outputPath": "dist/dance_on_location",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -63,11 +63,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "dol_frontend:build:production",
-              "browserTarget": "dol_frontend:build:production"
+              "buildTarget": "dance_on_location:build:production",
+              "browserTarget": "dance_on_location:build:production"
             },
             "development": {
-              "buildTarget": "dol_frontend:build:development"
+              "buildTarget": "dance_on_location:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "dol_frontend:build"
+            "buildTarget": "dance_on_location:build"
           }
         },
         "test": {

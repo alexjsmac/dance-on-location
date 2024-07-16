@@ -12,5 +12,5 @@ import {HttpClientModule} from "@angular/common/http";
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'dol_frontend';
+  title = 'dance_on_location';
 }

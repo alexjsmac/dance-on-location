@@ -37,12 +37,12 @@ jobs:
 #        run: npm test -- --watch=false --browsers=ChromeHeadless
 #        working-directory: frontend
       - name: Build
-        run: npm run build --configuration production
+        run: ng build --configuration production
         working-directory: frontend
 #      - name: Deploy to Netlify
 #        uses: nwtgck/actions-netlify@v3.0
 #        with:
-#          publish-dir: './dist/walk-the-dog/browser'
+#          publish-dir: './frontend/dist/dance_on_location/browser'
 #          production-branch: main
 #          github-token: ${{ secrets.GITHUB_TOKEN }}
 #          deploy-message: "Deploy from GitHub Actions"
