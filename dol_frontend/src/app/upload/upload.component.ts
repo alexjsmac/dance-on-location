@@ -17,7 +17,7 @@ export class UploadComponent {
 
   upload() {
     const payload = { video_url: this.videoUrl, gps_coordinates: [this.latitude, this.longitude] };
-    this.http.post('http://0.0.0.0:3000/admin/upload', payload).subscribe(response => {
+    this.http.post('http://127.0.0.1:8000/admin/upload', payload).subscribe(response => {
       console.log(response);
     });
   }

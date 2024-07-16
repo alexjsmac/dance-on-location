@@ -16,7 +16,7 @@ export class LoginComponent {
 
   login() {
     const payload = { username: this.username, password: this.password };
-    this.http.post('http://0.0.0.0:3000/admin/login', payload).subscribe(response => {
+    this.http.post('http://127.0.0.1:8000/admin/login', payload).subscribe(response => {
       console.log(response);
     });
   }

@@ -1,12 +1,10 @@
-use axum::{
-    routing::{get, post},
-    Json, Router,
-};
+use axum::{routing::get, Router, Json};
+use axum::routing::post;
 use serde::{Deserialize, Serialize};
 use tower_http::cors::{Any, CorsLayer};
 
-#[tokio::main]
-async fn main() {
+#[shuttle_runtime::main]
+async fn main() -> shuttle_axum::ShuttleAxum {
     let cors = CorsLayer::new()
         .allow_origin(Any)
         .allow_methods(Any)
@@ -18,8 +16,7 @@ async fn main() {
         .route("/admin/upload", post(upload_video))
         .layer(cors);
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+    Ok(app.into())
 }
 
 async fn root() -> &'static str {
