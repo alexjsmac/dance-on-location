@@ -39,17 +39,17 @@ jobs:
       - name: Build
         run: npm run build:ci
         working-directory: frontend
-#      - name: Deploy to Netlify
-#        uses: nwtgck/actions-netlify@v3.0
-#        with:
-#          publish-dir: './frontend/dist/dance_on_location/browser'
-#          production-branch: main
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          deploy-message: "Deploy from GitHub Actions"
-#          enable-pull-request-comment: true
-#          enable-commit-comment: true
-#          overwrites-pull-request-comment: true
-#        env:
-#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-#          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-#        timeout-minutes: 1
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: './frontend/dist/dance_on_location/browser'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1

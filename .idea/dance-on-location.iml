@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/dol_backend/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/backend/target" />
       <excludeFolder url="file://$MODULE_DIR$/dol_backend/target" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/.netlify" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
