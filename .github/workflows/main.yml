@@ -22,10 +22,10 @@ jobs:
       - name: Clippy
         run: cargo clippy --all -- -D warnings
         working-directory: backend
-      - uses: shuttle-hq/deploy-action@main
-        with:
-          working-directory: backend
-          deploy-key: ${{ secrets.SHUTTLE_API_KEY }}
+#      - uses: shuttle-hq/deploy-action@main
+#        with:
+#          working-directory: backend
+#          deploy-key: ${{ secrets.SHUTTLE_API_KEY }}
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
