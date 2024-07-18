@@ -1,0 +1,12 @@
+.header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
+.login-button {
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
