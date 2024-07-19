@@ -1,6 +1,6 @@
 mod auth;
 
-use crate::auth::{AuthError, Claims, login};
+use crate::auth::{login, AuthError, Claims};
 use axum::routing::post;
 use axum::{routing::get, Json, Router};
 use serde::{Deserialize, Serialize};
