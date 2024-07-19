@@ -1,0 +1,15 @@
+<h2>Manage Videos</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Video URL</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+  </tr>
+  <tr *ngFor="let video of videos">
+    <td>{{ video.id }}</td>
+    <td>{{ video.video_url }}</td>
+    <td>{{ video.gps_coordinates[0] }}</td>
+    <td>{{ video.gps_coordinates[1] }}</td>
+  </tr>
+</table>

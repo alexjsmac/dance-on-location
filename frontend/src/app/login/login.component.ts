@@ -1,25 +1,37 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {environment} from "../../environments/environment";
+import { Component, OnInit, inject} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    NgIf
+  ],
+  styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  private apiUrl = environment.apiUrl;
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
 
-  constructor(private http: HttpClient) {this.login()}
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+
+  constructor() {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {}
 
   login() {
-    const payload = { username: this.username, password: this.password };
-    this.http.post(`${this.apiUrl}/admin/login`, payload).subscribe(response => {
-      console.log(response);
-    });
+    if (this.loginForm.valid) {
+      const { username, password } = this.loginForm.value;
+      this.authService.login(username, password);
+    }
   }
 }
