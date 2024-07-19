@@ -12,7 +12,6 @@ export class HomeComponent {
   constructor(private router: Router) {}
 
   begin() {
-    console.log('Begin button clicked');
-    this.router.navigate(['/playback']).then(r => console.log(r));
+    this.router.navigate(['/playback']);
   }
 }

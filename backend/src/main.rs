@@ -1,3 +1,6 @@
+mod auth;
+
+use crate::auth::{login, AuthError, Claims};
 use axum::routing::post;
 use axum::{routing::get, Json, Router};
 use serde::{Deserialize, Serialize};
@@ -12,8 +15,9 @@ async fn main() -> shuttle_axum::ShuttleAxum {
 
     let app = Router::new()
         .route("/", get(root))
-        .route("/admin/login", post(admin_login))
-        .route("/admin/upload", post(upload_video))
+        .route("/login", post(login))
+        .route("/videos/upload", post(upload_video))
+        .route("/videos", get(videos))
         .layer(cors);
 
     Ok(app.into())
@@ -29,10 +33,10 @@ struct LoginRequest {
     password: String,
 }
 
-async fn admin_login(Json(_payload): Json<LoginRequest>) -> &'static str {
-    println!("Login request");
-    // Return a json string
-    r#"{"status": "logged_in"}"#
+async fn videos(claims: Claims) -> Result<String, AuthError> {
+    // Send the protected data to the user
+    println!("Claims: {:?}", claims);
+    Ok(r#"[{"id": "A", "video_url": "video1.mp4", "gps_coordinates": [0,1]}]"#.to_string())
 }
 
 #[derive(Serialize, Deserialize)]
