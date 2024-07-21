@@ -3,16 +3,16 @@ use std::time::SystemTime;
 
 use axum::{
     async_trait,
-    Extension,
     extract::FromRequestParts,
     http::{request::Parts, StatusCode},
-    Json, RequestPartsExt, response::{IntoResponse, Response},
+    response::{IntoResponse, Response},
+    Extension, Json, RequestPartsExt,
 };
 use axum_extra::{
-    headers::{Authorization, authorization::Bearer},
+    headers::{authorization::Bearer, Authorization},
     TypedHeader,
 };
-use jsonwebtoken::{decode, DecodingKey, encode, EncodingKey, Header, Validation};
+use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation};
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
