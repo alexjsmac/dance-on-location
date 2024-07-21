@@ -1,9 +1,12 @@
+use std::fmt::Display;
+use std::time::SystemTime;
+
 use axum::{
     async_trait,
     extract::FromRequestParts,
     http::{request::Parts, StatusCode},
     response::{IntoResponse, Response},
-    Json, RequestPartsExt,
+    Extension, Json, RequestPartsExt,
 };
 use axum_extra::{
     headers::{authorization::Bearer, Authorization},
@@ -13,22 +16,25 @@ use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation}
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use std::fmt::Display;
-use std::time::SystemTime;
+
+use crate::JWT_SECRET;
 
 static KEYS: Lazy<Keys> = Lazy::new(|| {
-    // note that in production, you will probably want to use a random SHA-256 hash or similar
-    let secret = "JWT_SECRET".to_string();
-    Keys::new(secret.as_bytes())
+    let secret = JWT_SECRET.lock().unwrap();
+    let secret_str = secret.as_ref().expect("JWT_SECRET not initialized");
+    Keys::new(secret_str.as_bytes())
 });
 
-pub async fn login(Json(payload): Json<AuthPayload>) -> Result<Json<AuthBody>, AuthError> {
+pub async fn login(
+    Extension(state): Extension<AuthPayload>,
+    Json(payload): Json<AuthPayload>,
+) -> Result<Json<AuthBody>, AuthError> {
     // Check if the user sent the credentials
     if payload.client_id.is_empty() || payload.client_secret.is_empty() {
         return Err(AuthError::MissingCredentials);
     }
     // Here you can check the user credentials from a database
-    if payload.client_id != "foo" || payload.client_secret != "bar" {
+    if payload.client_id != state.client_id || payload.client_secret != state.client_secret {
         return Err(AuthError::WrongCredentials);
     }
 
@@ -80,7 +86,6 @@ where
     type Rejection = AuthError;
 
     async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
-        println!("Request parts: {:?}", parts);
         // Extract the token from the authorization header
         let TypedHeader(Authorization(bearer)) = parts
             .extract::<TypedHeader<Authorization<Bearer>>>()
@@ -141,10 +146,10 @@ pub struct AuthBody {
 }
 
 // the request type - "client_id" is analogous to a username, client_secret can also be interpreted as a password
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct AuthPayload {
-    client_id: String,
-    client_secret: String,
+    pub(crate) client_id: String,
+    pub(crate) client_secret: String,
 }
 
 // error types for auth errors
