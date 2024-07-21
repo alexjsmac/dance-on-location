@@ -48,3 +48,13 @@ button[disabled] {
   background-color: #cccccc;
   cursor: not-allowed;
 }
+
+.error-message {
+  color: #D8000C;
+  background-color: #FFD2D2;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #D8000C;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
