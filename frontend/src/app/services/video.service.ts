@@ -5,9 +5,13 @@ import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
 export interface VideoItem {
-  id: number;
-  video_url: string;
-  gps_coordinates: [number, number];
+  editable: boolean;
+  id?: number;
+  name: string;
+  description: string;
+  url: string;
+  gps_latitude: number;
+  gps_longitude: number;
 }
 
 @Injectable({
@@ -24,5 +28,16 @@ export class VideoService {
   getVideos(): Observable<VideoItem[]> {
     const headers = this.authService.getAuthHeaders();
     return this.http.get<VideoItem[]>(`${this.apiUrl}/videos`, { headers });
+  }
+
+  saveVideoEdit(video: VideoItem): Observable<VideoItem[]> {
+    return this.http.put<VideoItem[]>(
+      `${this.apiUrl}/videos/${video.id}`,
+      video,
+    );
+  }
+
+  addVideo(video: VideoItem) {
+    return this.http.post<VideoItem>(`${this.apiUrl}/videos`, video);
   }
 }

@@ -1,0 +1,63 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #e8f4ff;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Button styling */
+button {
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Add button specific styling */
+button[onclick*="addVideo"] {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+/* Edit button specific styling */
+button[onclick*="editVideo"] {
+  background-color: #FFCA28; /* Amber */
+  color: black;
+}
+
+/* Delete button specific styling */
+button[onclick*="deleteVideo"] {
+  background-color: #F44336; /* Red */
+  color: white;
+}
+
+/* Hover effect for all buttons */
+button:hover {
+  opacity: 0.8;
+}
