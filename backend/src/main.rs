@@ -1,17 +1,17 @@
 use std::sync::Mutex;
 
-use axum::{Extension, Json, Router, routing::get};
 use axum::extract::State;
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::routing::post;
+use axum::{routing::get, Extension, Json, Router};
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use shuttle_runtime::SecretStore;
 use sqlx::{FromRow, PgPool};
 use tower_http::cors::{Any, CorsLayer};
 
-use crate::auth::{AuthPayload, login};
+use crate::auth::{login, AuthPayload};
 
 mod auth;
 
