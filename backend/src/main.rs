@@ -1,46 +1,61 @@
 use std::sync::Mutex;
 
+use axum::{Extension, Json, Router, routing::get};
+use axum::extract::State;
+use axum::http::StatusCode;
+use axum::response::IntoResponse;
 use axum::routing::post;
-use axum::{routing::get, Extension, Json, Router};
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use shuttle_runtime::SecretStore;
+use sqlx::{FromRow, PgPool};
 use tower_http::cors::{Any, CorsLayer};
 
-use crate::auth::{login, AuthError, AuthPayload, Claims};
+use crate::auth::{AuthPayload, login};
 
 mod auth;
 
 static JWT_SECRET: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
 
+#[derive(Clone)]
+struct DbState {
+    pool: PgPool,
+}
+
 #[shuttle_runtime::main]
-async fn main(#[shuttle_runtime::Secrets] secrets: SecretStore) -> shuttle_axum::ShuttleAxum {
+async fn main(
+    #[shuttle_runtime::Secrets] secrets: SecretStore,
+    #[shuttle_shared_db::Postgres] pool: PgPool,
+) -> shuttle_axum::ShuttleAxum {
+    sqlx::migrate!()
+        .run(&pool)
+        .await
+        .expect("Failed to run migrations");
+
     let cors = CorsLayer::new()
         .allow_origin(Any)
         .allow_methods(Any)
         .allow_headers(Any);
 
-    let state = AuthPayload {
+    let auth_state = AuthPayload {
         client_id: secrets.get("CLIENT_ID").expect("CLIENT_ID not found"),
         client_secret: secrets
             .get("CLIENT_SECRET")
             .expect("CLIENT_SECRET not found"),
     };
 
-    // Fetch the JWT secret
     let secret = secrets.get("JWT_SECRET").expect("JWT_SECRET not found");
-
-    // Store the secret for synchronous access
     let mut jwt_secret = JWT_SECRET.lock().unwrap();
     *jwt_secret = Some(secret);
 
+    let db_state = DbState { pool };
     let app = Router::new()
         .route("/", get(root))
         .route("/login", post(login))
-        .route("/videos/upload", post(upload_video))
-        .route("/videos", get(videos))
-        .layer(Extension(state))
-        .layer(cors);
+        .route("/videos", post(add_video).get(videos))
+        .layer(Extension(auth_state))
+        .layer(cors)
+        .with_state(db_state);
 
     Ok(app.into())
 }
@@ -55,18 +70,49 @@ struct LoginRequest {
     password: String,
 }
 
-async fn videos(_claims: Claims) -> Result<String, AuthError> {
-    // Send the protected data to the user
-    Ok(r#"[{"id": "A", "video_url": "video1.mp4", "gps_coordinates": [0,1]}]"#.to_string())
+async fn videos(State(state): State<DbState>) -> Result<impl IntoResponse, impl IntoResponse> {
+    match sqlx::query_as::<_, Video>("SELECT * FROM videos")
+        .fetch_all(&state.pool)
+        .await
+    {
+        Ok(videos) => Ok((StatusCode::OK, Json(videos))),
+        Err(e) => Err((StatusCode::BAD_REQUEST, e.to_string())),
+    }
 }
 
-#[derive(Serialize, Deserialize)]
-struct UploadRequest {
-    video_url: String,
-    gps_coordinates: (f64, f64),
+async fn add_video(
+    State(state): State<DbState>,
+    Json(data): Json<VideoNew>,
+) -> Result<impl IntoResponse, impl IntoResponse> {
+    match sqlx::query_as::<_, Video>("INSERT INTO videos (name, description, url, gps_latitude, gps_longitude) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, description, url, gps_latitude, gps_longitude")
+        .bind(&data.name)
+        .bind(&data.description)
+        .bind(&data.url)
+        .bind(data.gps_latitude)
+        .bind(data.gps_longitude)
+        .fetch_one(&state.pool)
+        .await
+    {
+        Ok(video) => Ok((StatusCode::CREATED, Json(video))),
+        Err(e) => Err((StatusCode::BAD_REQUEST, e.to_string())),
+    }
 }
 
-async fn upload_video(Json(_payload): Json<UploadRequest>) -> &'static str {
-    // Return a json string
-    r#"{"status": "uploaded"}"#
+#[derive(Deserialize, Debug)]
+struct VideoNew {
+    pub name: String,
+    pub description: String,
+    pub url: String,
+    pub gps_latitude: f64,
+    pub gps_longitude: f64,
+}
+
+#[derive(Serialize, FromRow)]
+struct Video {
+    pub id: i32,
+    pub name: String,
+    pub description: String,
+    pub url: String,
+    pub gps_latitude: f64,
+    pub gps_longitude: f64,
 }

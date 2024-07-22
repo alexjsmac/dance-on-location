@@ -1,15 +1,38 @@
 <h2>Manage Videos</h2>
 <table>
   <tr>
-    <th>ID</th>
+    <th>Name</th>
+    <th>Description</th>
     <th>Video URL</th>
     <th>Latitude</th>
     <th>Longitude</th>
+    <th>Actions</th>
   </tr>
-  <tr *ngFor="let video of videos">
-    <td>{{ video.id }}</td>
-    <td>{{ video.video_url }}</td>
-    <td>{{ video.gps_coordinates[0] }}</td>
-    <td>{{ video.gps_coordinates[1] }}</td>
+  <tr *ngFor="let video of videos; let i = index">
+    <ng-template #viewTemplate>
+      <td>{{ video.name }}</td>
+      <td>{{ video.description }}</td>
+      <td>{{ video.url }}</td>
+      <td>{{ video.gps_latitude }}</td>
+      <td>{{ video.gps_longitude }}</td>
+      <td>
+        <!-- Action buttons -->
+        <button (click)="editVideo(video)">Edit</button>
+        <button (click)="deleteVideo(video)">Delete</button>
+      </td>
+    </ng-template>
+    <ng-container *ngIf="video.editable; else viewTemplate">
+      <td><input [(ngModel)]="video.name" type="text"/></td>
+      <td><input [(ngModel)]="video.description" type="text"/></td>
+      <td><input [(ngModel)]="video.url" type="text"/></td>
+      <td><input [(ngModel)]="video.gps_latitude" type="text"/></td>
+      <td><input [(ngModel)]="video.gps_longitude" type="text"/></td>
+      <td>
+        <button (click)="saveVideo(video, i)">Save</button>
+        <button (click)="cancelEdit(video, i)">Cancel</button>
+      </td>
+    </ng-container>
   </tr>
 </table>
+<!-- Button to add a new video -->
+<button (click)="addVideo()">Add Video</button>
