@@ -1,19 +1,17 @@
 use std::sync::Mutex;
 
-use axum::extract::State;
-use axum::http::StatusCode;
-use axum::response::IntoResponse;
-use axum::routing::post;
-use axum::{routing::get, Extension, Json, Router};
+use axum::routing::{delete, post};
+use axum::{routing::get, Extension, Router};
 use once_cell::sync::Lazy;
-use serde::{Deserialize, Serialize};
 use shuttle_runtime::SecretStore;
-use sqlx::{FromRow, PgPool};
+use sqlx::PgPool;
 use tower_http::cors::{Any, CorsLayer};
 
 use crate::auth::{login, AuthPayload};
+use crate::video::{add_video, delete_video, update_video, videos};
 
 mod auth;
+mod video;
 
 static JWT_SECRET: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
 
@@ -53,6 +51,7 @@ async fn main(
         .route("/", get(root))
         .route("/login", post(login))
         .route("/videos", post(add_video).get(videos))
+        .route("/videos/:id", delete(delete_video).put(update_video))
         .layer(Extension(auth_state))
         .layer(cors)
         .with_state(db_state);
@@ -62,57 +61,4 @@ async fn main(
 
 async fn root() -> &'static str {
     "Welcome to the video hosting site!"
-}
-
-#[derive(Serialize, Deserialize)]
-struct LoginRequest {
-    username: String,
-    password: String,
-}
-
-async fn videos(State(state): State<DbState>) -> Result<impl IntoResponse, impl IntoResponse> {
-    match sqlx::query_as::<_, Video>("SELECT * FROM videos")
-        .fetch_all(&state.pool)
-        .await
-    {
-        Ok(videos) => Ok((StatusCode::OK, Json(videos))),
-        Err(e) => Err((StatusCode::BAD_REQUEST, e.to_string())),
-    }
-}
-
-async fn add_video(
-    State(state): State<DbState>,
-    Json(data): Json<VideoNew>,
-) -> Result<impl IntoResponse, impl IntoResponse> {
-    match sqlx::query_as::<_, Video>("INSERT INTO videos (name, description, url, gps_latitude, gps_longitude) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, description, url, gps_latitude, gps_longitude")
-        .bind(&data.name)
-        .bind(&data.description)
-        .bind(&data.url)
-        .bind(data.gps_latitude)
-        .bind(data.gps_longitude)
-        .fetch_one(&state.pool)
-        .await
-    {
-        Ok(video) => Ok((StatusCode::CREATED, Json(video))),
-        Err(e) => Err((StatusCode::BAD_REQUEST, e.to_string())),
-    }
-}
-
-#[derive(Deserialize, Debug)]
-struct VideoNew {
-    pub name: String,
-    pub description: String,
-    pub url: String,
-    pub gps_latitude: f64,
-    pub gps_longitude: f64,
-}
-
-#[derive(Serialize, FromRow)]
-struct Video {
-    pub id: i32,
-    pub name: String,
-    pub description: String,
-    pub url: String,
-    pub gps_latitude: f64,
-    pub gps_longitude: f64,
 }

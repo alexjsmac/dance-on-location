@@ -34,8 +34,9 @@ export class ManageComponent implements OnInit {
   }
 
   deleteVideo(video: VideoItem) {
-    // Placeholder for delete video logic
-    console.log('Deleting video', video.id);
+    this.videoService.deleteVideo(video).subscribe(() => {
+      this.videos = this.videos.filter((v) => v.id !== video.id);
+    });
   }
 
   editVideo(video: VideoItem) {
@@ -45,10 +46,9 @@ export class ManageComponent implements OnInit {
   saveVideo(video: VideoItem, index: number) {
     if (video.id) {
       // Call service to update the video
-      // this.videoService.saveVideoEdit(video).subscribe(() => {
-      //   this.videos[index].editable = false; // Make the row non-editable after save
-      // });
-      console.log('Saving video', video.id);
+      this.videoService.saveVideoEdit(video).subscribe(() => {
+        this.videos[index].editable = false; // Make the row non-editable after save
+      });
     } else {
       // Call service to save new video
       this.videoService.addVideo(video).subscribe((savedVideo: VideoItem) => {
@@ -59,7 +59,7 @@ export class ManageComponent implements OnInit {
   }
 
   cancelEdit(video: VideoItem, index: number) {
-    if (video.id === -1) {
+    if (video.id === undefined) {
       // If it's a new video (temporary ID is -1), remove it from the array
       this.videos.splice(index, 1);
     } else {

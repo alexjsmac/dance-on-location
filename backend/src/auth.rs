@@ -130,6 +130,12 @@ impl Keys {
     }
 }
 
+#[derive(Serialize, Deserialize)]
+struct LoginRequest {
+    username: String,
+    password: String,
+}
+
 // the JWT claim
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Claims {
