@@ -40,4 +40,8 @@ export class VideoService {
   addVideo(video: VideoItem) {
     return this.http.post<VideoItem>(`${this.apiUrl}/videos`, video);
   }
+
+  deleteVideo(video: VideoItem) {
+    return this.http.delete(`${this.apiUrl}/videos/${video.id}`);
+  }
 }
