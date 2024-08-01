@@ -19,7 +19,8 @@ interface GpsCoordinates {
 })
 export class PlaybackComponent implements OnInit, OnDestroy {
   videoItem: VideoItem | null = null;
-  message = 'No videos found';
+  message = 'Getting location...';
+  isLoading = true;
   private apiUrl = environment.apiUrl;
   private watchPositionId?: number;
   private httpSubscription?: Subscription;
@@ -34,11 +35,13 @@ export class PlaybackComponent implements OnInit, OnDestroy {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
+          this.isLoading = false;
           this.checkInRange(coords);
         },
         (error) => {
           console.error('GPS error:', error);
-          this.message = 'No videos found';
+          this.message = 'Failed to get location';
+          this.isLoading = false;
         },
         {
           enableHighAccuracy: false,
@@ -49,6 +52,7 @@ export class PlaybackComponent implements OnInit, OnDestroy {
     } else {
       console.error('Geolocation is not supported by this browser.');
       this.message = 'Geolocation is not supported by this browser.';
+      this.isLoading = false;
     }
   }
 
@@ -65,8 +69,8 @@ export class PlaybackComponent implements OnInit, OnDestroy {
     this.httpSubscription = this.http
       .get<VideoItem | null>(`${this.apiUrl}/check-in-range`, {
         params: {
-          latitude: coords.latitude.toString(),
-          longitude: coords.longitude.toString(),
+          latitude: coords.latitude,
+          longitude: coords.longitude,
         },
       })
       .subscribe({

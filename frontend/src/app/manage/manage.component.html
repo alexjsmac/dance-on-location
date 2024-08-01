@@ -25,8 +25,8 @@
       <td><input [(ngModel)]="video.name" type="text"/></td>
       <td><input [(ngModel)]="video.description" type="text"/></td>
       <td><input [(ngModel)]="video.url" type="text"/></td>
-      <td><input [(ngModel)]="video.gps_latitude" type="text"/></td>
-      <td><input [(ngModel)]="video.gps_longitude" type="text"/></td>
+      <td><input [(ngModel)]="video.gps_latitude" type="number"/></td>
+      <td><input [(ngModel)]="video.gps_longitude" type="number"/></td>
       <td>
         <button (click)="saveVideo(video, i)">Save</button>
         <button (click)="cancelEdit(video, i)">Cancel</button>
