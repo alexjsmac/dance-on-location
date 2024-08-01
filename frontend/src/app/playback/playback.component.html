@@ -1,1 +1,9 @@
-<p>playback works!</p>
+<div *ngIf="videoItem; else noVideo">
+  <h2>Video Details</h2>
+  <video [src]="videoItem.url" controls></video>
+  <p>Latitude: {{ videoItem.gps_latitude }}</p>
+  <p>Longitude: {{ videoItem.gps_longitude }}</p>
+</div>
+<ng-template #noVideo>
+  <p>{{ message }}</p>
+</ng-template>

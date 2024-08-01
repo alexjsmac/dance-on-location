@@ -1,16 +1,18 @@
 use std::sync::Mutex;
 
+use axum::{Extension, Router, routing::get};
 use axum::routing::{delete, post};
-use axum::{routing::get, Extension, Router};
 use once_cell::sync::Lazy;
 use shuttle_runtime::SecretStore;
 use sqlx::PgPool;
 use tower_http::cors::{Any, CorsLayer};
 
-use crate::auth::{login, AuthPayload};
+use crate::auth::{AuthPayload, login};
+use crate::playback::check_in_range;
 use crate::video::{add_video, delete_video, update_video, videos};
 
 mod auth;
+mod playback;
 mod video;
 
 static JWT_SECRET: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
@@ -49,6 +51,7 @@ async fn main(
     let db_state = DbState { pool };
     let app = Router::new()
         .route("/", get(root))
+        .route("/check-in-range", get(check_in_range))
         .route("/login", post(login))
         .route("/videos", post(add_video).get(videos))
         .route("/videos/:id", delete(delete_video).put(update_video))
