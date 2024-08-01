@@ -16,7 +16,7 @@ pub struct VideoNew {
     pub gps_longitude: f64,
 }
 
-#[derive(Serialize, FromRow)]
+#[derive(Serialize, Deserialize, Debug, FromRow, PartialEq)]
 pub struct Video {
     pub id: i32,
     pub name: String,
