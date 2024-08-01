@@ -1,11 +1,11 @@
 use axum::extract::{Query, State};
 use axum::http::StatusCode;
-use axum::Json;
 use axum::response::IntoResponse;
+use axum::Json;
 use serde::{Deserialize, Serialize};
 
-use crate::DbState;
 use crate::video::Video;
+use crate::DbState;
 
 #[derive(Serialize, Deserialize)]
 pub struct GpsCoordinates {

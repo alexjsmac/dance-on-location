@@ -1,13 +1,13 @@
 use std::sync::Mutex;
 
-use axum::{Extension, Router, routing::get};
 use axum::routing::{delete, post};
+use axum::{routing::get, Extension, Router};
 use once_cell::sync::Lazy;
 use shuttle_runtime::SecretStore;
 use sqlx::PgPool;
 use tower_http::cors::{Any, CorsLayer};
 
-use crate::auth::{AuthPayload, login};
+use crate::auth::{login, AuthPayload};
 use crate::playback::check_in_range;
 use crate::video::{add_video, delete_video, update_video, videos};
 
