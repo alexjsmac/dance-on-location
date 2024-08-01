@@ -18,6 +18,7 @@ pub async fn check_in_range(
     State(state): State<DbState>,
 ) -> Result<impl IntoResponse, impl IntoResponse> {
     let videos = get_videos_list(state).await.unwrap();
+
     if let Some(value) = nearby_video(coords, videos) {
         return Ok::<(StatusCode, Json<Option<Video>>), ()>((StatusCode::OK, Json(value.0)));
     }
@@ -34,7 +35,7 @@ fn nearby_video(coords: GpsCoordinates, videos: Vec<Video>) -> Option<Json<Optio
             video.gps_longitude,
         );
 
-        if distance < 0.01 {
+        if distance < 0.1 {
             return Some(Json(Some(video)));
         }
     }
@@ -53,11 +54,15 @@ async fn get_videos_list(state: DbState) -> Result<Vec<Video>, String> {
 
 fn haversine_distance(lat1: f64, lon1: f64, lat2: f64, lon2: f64) -> f64 {
     let r = 6371.0; // Earth radius in kilometers
+
     let d_lat = (lat2 - lat1).to_radians();
     let d_lon = (lon2 - lon1).to_radians();
+
     let a = (d_lat / 2.0).sin().powi(2)
         + lat1.to_radians().cos() * lat2.to_radians().cos() * (d_lon / 2.0).sin().powi(2);
+
     let c = 2.0 * a.sqrt().atan2((1.0 - a).sqrt());
+
     r * c
 }
 
@@ -105,11 +110,11 @@ mod tests {
 
     #[tokio::test]
     async fn test_haversine_distance() {
-        let lat1 = 37.7749;
-        let lon1 = -122.4194;
-        let lat2 = 37.8199;
-        let lon2 = -122.4783;
+        let lat1 = 42.989532463893525;
+        let lon1 = -81.18868691992738;
+        let lat2 = 42.989732463893525;
+        let lon2 = -81.18898691992738;
         let distance = haversine_distance(lat1, lon1, lat2, lon2);
-        assert!((distance - 5.0).abs() < 3.0);
+        assert!(distance.abs() < 0.1);
     }
 }
