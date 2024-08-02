@@ -1,30 +1,68 @@
 .home-container {
-  text-align: center;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   padding: 20px;
+  text-align: center;
+  background: linear-gradient(to right, #3a6186, #89253e); /* Same gradient */
+  color: #fff;
 }
 
 .banner {
-  background-color: #f8f9fa;
-  padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .banner h1 {
+  font-size: 3em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   margin: 0;
-  font-size: 2.5em;
+  color: #f4e04d; /* Same highlight color */
 }
 
 .intro {
-  margin: 20px 0;
-}
-
-.start-button {
-  margin-top: 20px;
+  max-width: 600px;
+  margin-bottom: 40px;
+  font-size: 1.2em;
+  line-height: 1.6;
 }
 
 .start-button button {
-  padding: 10px 20px;
-  font-size: 1em;
+  background-color: #f4e04d; /* Match button color */
+  color: #333;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.start-button button:hover {
+  background-color: #ffe66d; /* Match hover color */
+  transform: translateY(-5px);
+}
+
+.start-button button:active {
+  background-color: #d4b02f;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .banner h1 {
+    font-size: 2.5em;
+  }
+
+  .intro {
+    font-size: 1em;
+  }
+
+  .start-button button {
+    width: 100%;
+    padding: 15px;
+  }
 }

@@ -1,63 +1,125 @@
+.manage-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #fff;
+  background-color: #3a6186; /* Match the site's color scheme */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  text-align: center;
+  color: #f4e04d; /* Highlight color */
+  margin-bottom: 20px;
+  font-size: 2.5em;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-bottom: 20px;
+  min-width: 600px; /* Set a minimum width to prevent squishing */
+  table-layout: fixed; /* Ensures table cells don't extend beyond table width */
 }
 
 th, td {
+  padding: 10px 15px;
   text-align: left;
-  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.2em;
+  word-wrap: break-word; /* Breaks long words to wrap text within the cell */
+  overflow: hidden; /* Prevents content from overflowing */
+  text-overflow: ellipsis; /* Adds ellipsis (...) to clipped content */
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #89253e; /* Match the gradient's secondary color */
+  color: #fff;
+}
+
+td {
+  background-color: #3a6186;
+  color: #fff;
+}
+
+tr:hover td {
+  background-color: #555; /* Hover effect on rows */
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #f4e04d; /* Input field background matching button color */
   color: #333;
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:hover {
-  background-color: #e8f4ff;
-}
-
-@media screen and (max-width: 600px) {
-  table {
-    display: block;
-    overflow-x: auto;
-  }
-}
-
-/* Button styling */
-button {
+.action-button {
+  padding: 8px 12px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 5px;
   cursor: pointer;
-  padding: 5px 10px;
-  margin-right: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  margin-right: 5px;
 }
 
-/* Add button specific styling */
-button[onclick*="addVideo"] {
-  background-color: #4CAF50; /* Green */
+.edit-button {
+  background-color: #4CAF50; /* Green for Edit */
   color: white;
 }
 
-/* Edit button specific styling */
-button[onclick*="editVideo"] {
-  background-color: #FFCA28; /* Amber */
-  color: black;
-}
-
-/* Delete button specific styling */
-button[onclick*="deleteVideo"] {
-  background-color: #F44336; /* Red */
+.delete-button {
+  background-color: #f44336; /* Red for Delete */
   color: white;
 }
 
-/* Hover effect for all buttons */
-button:hover {
-  opacity: 0.8;
+.save-button {
+  background-color: #4CAF50; /* Green for Save */
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f44336; /* Red for Cancel */
+  color: white;
+}
+
+.add-button {
+  background-color: #f4e04d; /* Match button color with site theme */
+  color: #333;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.add-button:hover {
+  background-color: #ffe66d; /* Lighter shade on hover */
+}
+
+.add-button:active {
+  background-color: #d4b02f;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .input, .action-button, .add-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }

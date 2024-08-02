@@ -1,38 +1,40 @@
-<h2>Manage Videos</h2>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Video URL</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
-    <th>Actions</th>
-  </tr>
-  <tr *ngFor="let video of videos; let i = index">
-    <ng-template #viewTemplate>
-      <td>{{ video.name }}</td>
-      <td>{{ video.description }}</td>
-      <td>{{ video.url }}</td>
-      <td>{{ video.gps_latitude }}</td>
-      <td>{{ video.gps_longitude }}</td>
-      <td>
-        <!-- Action buttons -->
-        <button (click)="editVideo(video)">Edit</button>
-        <button (click)="deleteVideo(video)">Delete</button>
-      </td>
-    </ng-template>
-    <ng-container *ngIf="video.editable; else viewTemplate">
-      <td><input [(ngModel)]="video.name" type="text"/></td>
-      <td><input [(ngModel)]="video.description" type="text"/></td>
-      <td><input [(ngModel)]="video.url" type="text"/></td>
-      <td><input [(ngModel)]="video.gps_latitude" type="number"/></td>
-      <td><input [(ngModel)]="video.gps_longitude" type="number"/></td>
-      <td>
-        <button (click)="saveVideo(video, i)">Save</button>
-        <button (click)="cancelEdit(video, i)">Cancel</button>
-      </td>
-    </ng-container>
-  </tr>
-</table>
-<!-- Button to add a new video -->
-<button (click)="addVideo()">Add Video</button>
+<div class="manage-container">
+  <h2>Manage Videos</h2>
+  <div class="table-responsive">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Video URL</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let video of videos; let i = index">
+        <ng-template #viewTemplate>
+          <td>{{ video.name }}</td>
+          <td>{{ video.description }}</td>
+          <td>{{ video.url }}</td>
+          <td>{{ video.gps_latitude }}</td>
+          <td>{{ video.gps_longitude }}</td>
+          <td>
+            <button (click)="editVideo(video)" class="action-button edit-button">Edit</button>
+            <button (click)="deleteVideo(video)" class="action-button delete-button">Delete</button>
+          </td>
+        </ng-template>
+        <ng-container *ngIf="video.editable; else viewTemplate">
+          <td><input [(ngModel)]="video.name" class="input" type="text"/></td>
+          <td><input [(ngModel)]="video.description" class="input" type="text"/></td>
+          <td><input [(ngModel)]="video.url" class="input" type="text"/></td>
+          <td><input [(ngModel)]="video.gps_latitude" class="input" type="number"/></td>
+          <td><input [(ngModel)]="video.gps_longitude" class="input" type="number"/></td>
+          <td>
+            <button (click)="saveVideo(video, i)" class="action-button save-button">Save</button>
+            <button (click)="cancelEdit(video, i)" class="action-button cancel-button">Cancel</button>
+          </td>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+  <button (click)="addVideo()" class="add-button">Add Video</button>
+</div>
