@@ -1,13 +1,14 @@
+/* src/app/home/home.component.css */
+
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  padding: 20px;
+  min-height: 100vh;
+  background: #fcf9f4; /* First color */
+  color: #333;
   text-align: center;
-  background: linear-gradient(to right, #3a6186, #89253e); /* Same gradient */
-  color: #fff;
 }
 
 .banner {
@@ -16,11 +17,11 @@
 
 .banner h1 {
   font-size: 3em;
+  color: #ea7659; /* Third color */
   font-weight: bold;
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin: 0;
-  color: #f4e04d; /* Same highlight color */
 }
 
 .intro {
@@ -28,41 +29,24 @@
   margin-bottom: 40px;
   font-size: 1.2em;
   line-height: 1.6;
+  color: #333;
 }
 
 .start-button button {
-  background-color: #f4e04d; /* Match button color */
-  color: #333;
-  padding: 15px 30px;
   font-size: 1.2em;
-  font-weight: bold;
-  border: none;
+  padding: 15px 30px;
   border-radius: 50px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  background: #ffc97c; /* Second color */
+  color: #333;
+  transition: background 0.3s, transform 0.3s;
 }
 
 .start-button button:hover {
-  background-color: #ffe66d; /* Match hover color */
-  transform: translateY(-5px);
+  background: #ea7659; /* Third color */
+  transform: scale(1.05);
 }
 
 .start-button button:active {
-  background-color: #d4b02f;
-  transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-  .banner h1 {
-    font-size: 2.5em;
-  }
-
-  .intro {
-    font-size: 1em;
-  }
-
-  .start-button button {
-    width: 100%;
-    padding: 15px;
-  }
+  background: #ea7659;
+  transform: scale(1);
 }

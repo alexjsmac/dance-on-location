@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+
+/* Define the new color palette */
+.first-color {
+  background: #fcf9f4;
+}
+
+.second-color {
+  background: #ffc97c;
+}
+
+.third-color {
+  background: #ea7659;
+}
+
+.fourth-color {
+  background: #c1c1c1;
+}
+
+/* Global Font and Background */
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+}
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #fcf9f4; /* Use the first color as a base background */
+  color: #333;
+}
+
+/* Link Styling */
+a {
+  color: #ea7659; /* Use third color for links */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c1c1c1; /* Use fourth color for hover */
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+button {
+  font-family: 'Open Sans', sans-serif;
+  background: #ffc97c; /* Use second color for buttons */
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background: #ea7659; /* Use third color on hover */
+  transform: scale(1.05);
+}
+
+button:active {
+  background: #ea7659;
+  transform: scale(1);
+}
+
+input, select, textarea {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 8px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #ffc97c; /* Match input focus border with the button color */
+}

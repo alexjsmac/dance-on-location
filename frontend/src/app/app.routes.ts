@@ -7,10 +7,23 @@ import { AuthGuard } from './guards/auth-guard.guard';
 import { ManageComponent } from './manage/manage.component';
 
 export const routes: Routes = [
-  { path: '', title: 'Home Page', component: HomeComponent },
-  { path: 'playback', title: 'Playback Page', component: PlaybackComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] },
+  { path: '', title: 'Dance on Location | Home', component: HomeComponent },
+  {
+    path: 'playback',
+    title: 'Dance on Location | Playback',
+    component: PlaybackComponent,
+  },
+  {
+    path: 'login',
+    title: 'Dance on Location | Login',
+    component: LoginComponent,
+  },
+  {
+    path: 'manage',
+    title: 'Dance on Location | Manage',
+    component: ManageComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
