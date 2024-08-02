@@ -9,7 +9,7 @@ export interface VideoItem {
   id?: number;
   name: string;
   description: string;
-  url: string;
+  vimeo_id: string;
   gps_latitude: number;
   gps_longitude: number;
 }

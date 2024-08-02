@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { VideoItem } from '../services/video.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 interface GpsCoordinates {
   latitude: number;
@@ -25,7 +26,15 @@ export class PlaybackComponent implements OnInit, OnDestroy {
   private watchPositionId?: number;
   private httpSubscription?: Subscription;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    protected sanitizer: DomSanitizer,
+    private http: HttpClient,
+  ) {}
+
+  // Generate the Vimeo embed URL
+  getVimeoEmbedUrl(vimeoId: string): string {
+    return `https://player.vimeo.com/video/${vimeoId}`;
+  }
 
   ngOnInit() {
     if (navigator.geolocation) {

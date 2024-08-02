@@ -1,11 +1,11 @@
 use axum::extract::{Query, State};
 use axum::http::StatusCode;
-use axum::response::IntoResponse;
 use axum::Json;
+use axum::response::IntoResponse;
 use serde::{Deserialize, Serialize};
 
-use crate::video::Video;
 use crate::DbState;
+use crate::video::Video;
 
 #[derive(Serialize, Deserialize)]
 pub struct GpsCoordinates {
@@ -81,7 +81,7 @@ mod tests {
                 id: 1,
                 name: "test".to_string(),
                 description: "test".to_string(),
-                url: "test".to_string(),
+                vimeo_id: "test".to_string(),
                 gps_latitude: 37.8199,
                 gps_longitude: -122.4783,
             },
@@ -89,7 +89,7 @@ mod tests {
                 id: 2,
                 name: "test".to_string(),
                 description: "test".to_string(),
-                url: "test".to_string(),
+                vimeo_id: "test".to_string(),
                 gps_latitude: 37.7749,
                 gps_longitude: -122.4194,
             },
@@ -101,7 +101,7 @@ mod tests {
                 id: 2,
                 name: "test".to_string(),
                 description: "test".to_string(),
-                url: "test".to_string(),
+                vimeo_id: "test".to_string(),
                 gps_latitude: 37.7749,
                 gps_longitude: -122.4194,
             })

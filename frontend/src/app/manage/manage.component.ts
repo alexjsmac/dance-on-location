@@ -25,7 +25,7 @@ export class ManageComponent implements OnInit {
     const newVideo: VideoItem = {
       name: '',
       description: '',
-      url: '',
+      vimeo_id: '',
       gps_latitude: 0,
       gps_longitude: 0,
       editable: true, // Flag to indicate the row is editable
