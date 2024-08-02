@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS videos (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    url VARCHAR(255) NOT NULL,
+    vimeo_id VARCHAR(255) NOT NULL,
     gps_latitude FLOAT NOT NULL,
     gps_longitude FLOAT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
