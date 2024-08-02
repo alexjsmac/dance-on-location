@@ -1,17 +1,19 @@
+/* src/app/login/login.component.css */
+
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  padding: 20px;
-  background: linear-gradient(to right, #3a6186, #89253e); /* Same gradient */
-  color: #fff;
+  min-height: 100vh;
+  background: #fcf9f4; /* First color */
+  color: #333;
+  text-align: center;
 }
 
 .login-container h2 {
   font-size: 2.5em;
-  color: #f4e04d; /* Highlight color */
+  color: #ea7659; /* Third color */
   margin-bottom: 20px;
 }
 
@@ -26,63 +28,20 @@
   font-size: 1.2em;
   margin-bottom: 5px;
   display: block;
-  color: #fff;
+  color: #333;
 }
 
 .form-group input {
-  width: 100%;
-  padding: 10px;
-  font-size: 1em;
-  border-radius: 5px;
+  background: #fff;
   border: 1px solid #ccc;
-  background-color: #f4e04d; /* Match the button and highlight color */
   color: #333;
-}
-
-.form-group input:focus {
-  border-color: #e64a19; /* Focus color */
-  outline: none;
-}
-
-button {
-  background-color: #f4e04d;
-  color: #333;
-  padding: 15px 30px;
-  font-size: 1.2em;
-  font-weight: bold;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-  background-color: #ffe66d;
-  transform: translateY(-5px);
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .error-message {
   margin-top: 20px;
-  color: #ff4c4c;
+  color: #ea7659; /* Third color */
   font-size: 1.1em;
-}
-
-@media (max-width: 768px) {
-  .login-container h2 {
-    font-size: 2em;
-  }
-
-  .form-group {
-    width: 100%;
-  }
-
-  button {
-    width: 100%;
-    padding: 15px;
-  }
 }

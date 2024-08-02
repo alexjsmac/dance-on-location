@@ -1,44 +1,63 @@
+/* src/app/playback/playback.component.css */
+
 .container {
+  padding: 20px;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  background: #fcf9f4; /* First color */
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
 .loading-message {
   font-size: 1.5em;
-  color: #666;
-}
-
-.video-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-top: 20px;
+  color: #333;
+  padding: 50px 0;
 }
 
 .video-title {
-  font-family: 'Roboto', sans-serif;
   font-size: 2em;
-  color: #333;
+  color: #ea7659; /* Third color */
+  margin-bottom: 15px;
 }
 
 .video-player {
   width: 100%;
+  max-width: 100%;
   height: auto;
-  border-radius: 8px;
-  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
 }
 
 .video-coordinates {
-  font-family: 'Roboto', sans-serif;
-  color: #777;
-  font-size: 1em;
+  font-size: 1.2em;
+  color: #333;
+  margin-top: 10px;
 }
 
 .no-video-message {
   font-size: 1.5em;
-  color: #666;
-  margin-top: 20px;
+  color: #ea7659; /* Third color */
+  padding: 50px 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .video-title {
+    font-size: 1.5em;
+  }
+
+  .video-coordinates {
+    font-size: 1em;
+  }
+
+  .no-video-message {
+    font-size: 1.2em;
+  }
 }

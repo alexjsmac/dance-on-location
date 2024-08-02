@@ -4,7 +4,7 @@
   </div>
 
   <ng-template #content>
-    <div *ngIf="videoItem; else noVideo" class="video-card">
+    <div *ngIf="videoItem; else noVideo">
       <h2 class="video-title">{{ videoItem.name }}</h2>
       <video [src]="videoItem.url" class="video-player" controls></video>
       <p class="video-coordinates">{{ videoItem.description }}</p>
