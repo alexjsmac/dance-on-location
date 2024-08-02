@@ -1,14 +1,15 @@
 <div class="header">
-  <nav>
-    <a routerLink="/">Home</a>
+  <nav class="navbar">
+    <a class="navbar-brand" routerLink="/">Home</a>
     <ng-container *ngIf="isLoggedIn(); else showLogin">
-      <a class="login-button" routerLink="/manage">Manage</a>
-      <a (click)="logout()" class="login-button" href="#">Logout</a>
+      <a class="navbar-link" routerLink="/manage">Manage</a>
+      <a (click)="logout()" class="navbar-link" href="#">Logout</a>
     </ng-container>
     <ng-template #showLogin>
-      <a class="login-button" routerLink="/login">Login</a>
+      <a class="navbar-link login-button" routerLink="/login">Login</a>
     </ng-template>
   </nav>
 </div>
-<div></div>
-<router-outlet/>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
