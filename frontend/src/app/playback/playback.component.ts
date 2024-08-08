@@ -140,7 +140,12 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
     console.log('Initializing Vimeo player with ID:', vimeoId);
     this.vimeoPlayer = new Player(this.vimeoContainer!.nativeElement, {
       id: Number(vimeoId),
-      width: 640,
+      responsive: true,
+      byline: false,
+      playsinline: false,
+      portrait: false,
+      title: false,
+      pip: false,
     });
 
     this.vimeoPlayer.on('play', () => {
