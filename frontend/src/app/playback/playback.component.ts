@@ -85,8 +85,10 @@ export class PlaybackComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (video) => {
           if (video) {
-            this.videoItem = video;
-            this.message = '';
+            if (this.videoItem?.id !== video.id) {
+              this.videoItem = video;
+              this.message = '';
+            }
           } else {
             this.videoItem = null;
             this.message = 'No videos found';

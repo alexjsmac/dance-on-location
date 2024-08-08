@@ -14,6 +14,7 @@ pub struct VideoNew {
     pub vimeo_id: String,
     pub gps_latitude: f64,
     pub gps_longitude: f64,
+    pub range: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug, FromRow, PartialEq)]
@@ -24,6 +25,7 @@ pub struct Video {
     pub vimeo_id: String,
     pub gps_latitude: f64,
     pub gps_longitude: f64,
+    pub range: f64,
 }
 
 pub async fn videos(State(state): State<DbState>) -> Result<impl IntoResponse, impl IntoResponse> {
@@ -40,12 +42,13 @@ pub async fn add_video(
     State(state): State<DbState>,
     Json(data): Json<VideoNew>,
 ) -> Result<impl IntoResponse, impl IntoResponse> {
-    match sqlx::query_as::<_, Video>("INSERT INTO videos (name, description, vimeo_id, gps_latitude, gps_longitude) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, description, vimeo_id, gps_latitude, gps_longitude")
+    match sqlx::query_as::<_, Video>("INSERT INTO videos (name, description, vimeo_id, gps_latitude, gps_longitude, range) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, name, description, vimeo_id, gps_latitude, gps_longitude, range")
         .bind(&data.name)
         .bind(&data.description)
         .bind(&data.vimeo_id)
         .bind(data.gps_latitude)
         .bind(data.gps_longitude)
+        .bind(data.range)
         .fetch_one(&state.pool)
         .await
     {
@@ -73,12 +76,13 @@ pub async fn update_video(
     Path(id): Path<i32>,
     Json(data): Json<VideoNew>,
 ) -> Result<impl IntoResponse, impl IntoResponse> {
-    match sqlx::query("UPDATE videos SET name = $1, description = $2, vimeo_id = $3, gps_latitude = $4, gps_longitude = $5 WHERE id = $6")
+    match sqlx::query("UPDATE videos SET name = $1, description = $2, vimeo_id = $3, gps_latitude = $4, gps_longitude = $5, range = $6 WHERE id = $7")
         .bind(&data.name)
         .bind(&data.description)
         .bind(&data.vimeo_id)
         .bind(data.gps_latitude)
         .bind(data.gps_longitude)
+        .bind(data.range)
         .bind(id)
         .execute(&state.pool)
         .await

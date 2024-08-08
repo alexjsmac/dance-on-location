@@ -35,7 +35,7 @@ fn nearby_video(coords: GpsCoordinates, videos: Vec<Video>) -> Option<Json<Optio
             video.gps_longitude,
         );
 
-        if distance < 0.1 {
+        if distance < video.range {
             return Some(Json(Some(video)));
         }
     }
@@ -84,6 +84,7 @@ mod tests {
                 vimeo_id: "test".to_string(),
                 gps_latitude: 37.8199,
                 gps_longitude: -122.4783,
+                range: 0.1,
             },
             Video {
                 id: 2,
@@ -92,6 +93,7 @@ mod tests {
                 vimeo_id: "test".to_string(),
                 gps_latitude: 37.7749,
                 gps_longitude: -122.4194,
+                range: 0.1,
             },
         ];
         let result = nearby_video(coords, videos);
@@ -104,6 +106,7 @@ mod tests {
                 vimeo_id: "test".to_string(),
                 gps_latitude: 37.7749,
                 gps_longitude: -122.4194,
+                range: 0.1,
             })
         );
     }
