@@ -79,7 +79,6 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
       !this.vimeoPlayer &&
       this.videoItem.vimeo_id
     ) {
-      console.log('ngAfterViewChecked: Initializing Vimeo player');
       this.initializeVimeoPlayer(this.videoItem.vimeo_id);
     }
   }
@@ -110,10 +109,6 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
             this.videoItem = video;
             this.message = '';
             if (this.vimeoContainer) {
-              console.log(
-                'checkInRange: Initializing Vimeo player with ID:',
-                video.vimeo_id,
-              );
               this.initializeVimeoPlayer(video.vimeo_id);
             }
           } else if (!video) {
@@ -137,7 +132,6 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.vimeoPlayer.destroy();
     }
 
-    console.log('Initializing Vimeo player with ID:', vimeoId);
     this.vimeoPlayer = new Player(this.vimeoContainer!.nativeElement, {
       id: Number(vimeoId),
       responsive: true,
