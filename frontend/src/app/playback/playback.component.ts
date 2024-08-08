@@ -22,6 +22,7 @@ export class PlaybackComponent implements OnInit, OnDestroy {
   videoItem: VideoItem | null = null;
   message = 'Getting location...';
   isLoading = true;
+  isPlaying: boolean = false;
   private apiUrl = environment.apiUrl;
   private watchPositionId?: number;
   private httpSubscription?: Subscription;
@@ -45,7 +46,11 @@ export class PlaybackComponent implements OnInit, OnDestroy {
             longitude: position.coords.longitude,
           };
           this.isLoading = false;
-          this.checkInRange(coords);
+
+          // Check if the video is playing
+          if (!this.isPlaying) {
+            this.checkInRange(coords);
+          }
         },
         (error) => {
           console.error('GPS error:', error);
@@ -74,6 +79,14 @@ export class PlaybackComponent implements OnInit, OnDestroy {
     }
   }
 
+  onPlayVideo() {
+    this.isPlaying = true;
+  }
+
+  onPauseVideo() {
+    this.isPlaying = false;
+  }
+
   private checkInRange(coords: GpsCoordinates) {
     this.httpSubscription = this.http
       .get<VideoItem | null>(`${this.apiUrl}/check-in-range`, {
@@ -84,14 +97,14 @@ export class PlaybackComponent implements OnInit, OnDestroy {
       })
       .subscribe({
         next: (video) => {
-          if (video) {
-            if (this.videoItem?.id !== video.id) {
-              this.videoItem = video;
-              this.message = '';
-            }
-          } else {
+          if (video && this.videoItem?.id !== video.id) {
+            this.videoItem = video;
+            this.message = '';
+            this.isPlaying = false;
+          } else if (!video) {
             this.videoItem = null;
             this.message = 'No videos found';
+            this.isPlaying = false;
           }
         },
         error: (error) => {

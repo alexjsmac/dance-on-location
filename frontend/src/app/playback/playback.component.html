@@ -8,6 +8,9 @@
       <h2 class="video-title">{{ videoItem.name }}</h2>
       <div class="video-wrapper">
         <iframe
+          (ended)="onPauseVideo()"
+          (pause)="onPauseVideo()"
+          (play)="onPlayVideo()"
           [src]="sanitizer.bypassSecurityTrustResourceUrl(getVimeoEmbedUrl(videoItem.vimeo_id))"
           allow="fullscreen"
           class="vimeo-player">
