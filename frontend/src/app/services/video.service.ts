@@ -12,6 +12,7 @@ export interface VideoItem {
   vimeo_id: string;
   gps_latitude: number;
   gps_longitude: number;
+  range: number;
 }
 
 @Injectable({

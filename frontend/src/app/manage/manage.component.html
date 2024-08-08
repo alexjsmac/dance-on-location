@@ -8,6 +8,7 @@
         <th>Vimeo ID</th>
         <th>Latitude</th>
         <th>Longitude</th>
+        <th>Range (km)</th>
         <th>Actions</th>
       </tr>
       <tr *ngFor="let video of videos; let i = index">
@@ -17,6 +18,7 @@
           <td>{{ video.vimeo_id }}</td>
           <td>{{ video.gps_latitude }}</td>
           <td>{{ video.gps_longitude }}</td>
+          <td>{{ video.range }}</td>
           <td>
             <button (click)="editVideo(video)" class="action-button edit-button">Edit</button>
             <button (click)="deleteVideo(video)" class="action-button delete-button">Delete</button>
@@ -28,6 +30,7 @@
           <td><input [(ngModel)]="video.vimeo_id" class="input" type="text"/></td>
           <td><input [(ngModel)]="video.gps_latitude" class="input" type="number"/></td>
           <td><input [(ngModel)]="video.gps_longitude" class="input" type="number"/></td>
+          <td><input [(ngModel)]="video.range" class="input" type="number"/></td>
           <td>
             <button (click)="saveVideo(video, i)" class="action-button save-button">Save</button>
             <button (click)="cancelEdit(video, i)" class="action-button cancel-button">Cancel</button>

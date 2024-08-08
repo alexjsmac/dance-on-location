@@ -28,6 +28,7 @@ export class ManageComponent implements OnInit {
       vimeo_id: '',
       gps_latitude: 0,
       gps_longitude: 0,
+      range: 0,
       editable: true, // Flag to indicate the row is editable
     };
     this.videos.push(newVideo);

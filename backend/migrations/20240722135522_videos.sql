@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS videos (
     vimeo_id VARCHAR(255) NOT NULL,
     gps_latitude FLOAT NOT NULL,
     gps_longitude FLOAT NOT NULL,
+    range FLOAT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
