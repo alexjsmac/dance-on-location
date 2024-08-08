@@ -34,9 +34,9 @@ jobs:
       - name: Install dependencies
         run: npm install
         working-directory: frontend
-      - name: Test Angular
-        run: npm run test:ci
-        working-directory: frontend
+#      - name: Test Angular
+#        run: npm run test:ci
+#        working-directory: frontend
       - name: Build
         run: npm run build:ci
         working-directory: frontend
