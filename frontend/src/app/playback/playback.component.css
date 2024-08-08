@@ -24,14 +24,29 @@
 }
 
 .video-wrapper {
-  margin: 20px 0;
+  margin-bottom: 20px; /* Adds space between video and text below */
 }
 
-.vimeo-player {
+.vimeo-player-container {
   width: 100%;
-  height: 450px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  height: 0;
+  padding-bottom: 56.25%; /* Aspect ratio for 16:9 videos */
+  position: relative;
+}
+
+.vimeo-player-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-description {
+  font-size: 1.2em;
+  color: #333;
+  margin-top: 10px;
+  padding-top: 60px;
 }
 
 .video-coordinates {
@@ -53,10 +68,6 @@
 
   .video-title {
     font-size: 1.5em;
-  }
-
-  .vimeo-player {
-    height: 300px;
   }
 
   .video-coordinates {
