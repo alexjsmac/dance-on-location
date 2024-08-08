@@ -6,16 +6,7 @@
   <ng-template #content>
     <div *ngIf="videoItem; else noVideo">
       <h2 class="video-title">{{ videoItem.name }}</h2>
-      <div class="video-wrapper">
-        <iframe
-          (ended)="onPauseVideo()"
-          (pause)="onPauseVideo()"
-          (play)="onPlayVideo()"
-          [src]="sanitizer.bypassSecurityTrustResourceUrl(getVimeoEmbedUrl(videoItem.vimeo_id))"
-          allow="fullscreen"
-          class="vimeo-player">
-        </iframe>
-      </div>
+      <div #vimeoContainer class="video-wrapper"></div>
       <p class="video-coordinates">{{ videoItem.description }}</p>
       <p class="video-coordinates">Latitude: {{ videoItem.gps_latitude }}</p>
       <p class="video-coordinates">Longitude: {{ videoItem.gps_longitude }}</p>
