@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
-import { environment } from '../../environments/environment';
-import { VideoItem } from '../services/video.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import { VideoItem } from '../services/video.service';
+import { environment } from '../../environments/environment';
 
 interface GpsCoordinates {
   latitude: number;

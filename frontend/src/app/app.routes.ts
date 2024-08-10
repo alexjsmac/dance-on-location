@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { PlaybackComponent } from './playback/playback.component';
+
 import { AuthGuard } from './guards/auth-guard.guard';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { ManageComponent } from './manage/manage.component';
+import { PlaybackComponent } from './playback/playback.component';
 
 export const routes: Routes = [
   { path: '', title: 'Dance on Location | Home', component: HomeComponent },

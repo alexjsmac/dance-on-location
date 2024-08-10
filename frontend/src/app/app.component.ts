@@ -20,7 +20,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'dance_on_location';
+  title = 'dol_frontend';
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
