@@ -24,9 +24,12 @@
         color: #333;
         text-decoration: none;
         padding: 10px 15px;
-        transition: color 0.3s, background 0.3s;
+        transition:
+          color 0.3s,
+          background 0.3s;
 
-        &:hover, &.active {
+        &:hover,
+        &.active {
           color: #fff;
           background: var(--third-color);
           border-radius: 5px;

@@ -1,4 +1,4 @@
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -25,8 +25,8 @@ export class AuthService {
         client_secret: password,
       })
       .pipe(
-        tap((response) => this.handleLoginSuccess(response)),
-        catchError((error) => this.handleLoginError(error)),
+        tap(response => this.handleLoginSuccess(response)),
+        catchError(error => this.handleLoginError(error)),
       );
   }
 
@@ -58,9 +58,8 @@ export class AuthService {
     this.router.navigate(['/manage']);
   }
 
-  private handleLoginError(error: any): Observable<never> {
-    this.loginError =
-      error?.error?.error || 'Login failed due to an unknown error';
+  private handleLoginError(error: any): Observable<any> {
+    this.loginError = error?.error?.error || 'Login failed due to an unknown error';
     return throwError(() => new Error(this.loginError));
   }
 }

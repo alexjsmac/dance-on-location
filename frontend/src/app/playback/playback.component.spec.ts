@@ -4,13 +4,12 @@ import { PlaybackComponent } from './playback.component';
 
 describe('PlaybackComponent', () => {
   let component: PlaybackComponent;
-  let fixture: ComponentFixture<PlaybackComponent>;
+  let fixture: ComponentFixture;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlaybackComponent]
-    })
-    .compileComponents();
+      imports: [PlaybackComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PlaybackComponent);
     component = fixture.componentInstance;

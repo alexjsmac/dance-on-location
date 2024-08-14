@@ -37,7 +37,9 @@
     background: var(--second-color);
     color: #333;
     text-decoration: none;
-    transition: background 0.3s, transform 0.3s;
+    transition:
+      background 0.3s,
+      transform 0.3s;
 
     &:hover {
       background: var(--third-color);

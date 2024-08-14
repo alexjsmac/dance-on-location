@@ -28,7 +28,8 @@
       min-width: 600px;
       table-layout: fixed;
 
-      th, td {
+      th,
+      td {
         padding: 10px 15px;
         text-align: left;
         border-bottom: 1px solid var(--fourth-color);
@@ -70,12 +71,14 @@
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
+    transition:
+      background 0.3s,
+      transform 0.3s;
     border: none;
     margin-right: 5px;
 
     &.edit-button {
-      background-color: #4CAF50;
+      background-color: #4caf50;
       color: white;
     }
 
@@ -85,7 +88,7 @@
     }
 
     &.save-button {
-      background-color: #4CAF50;
+      background-color: #4caf50;
       color: white;
     }
 
@@ -103,7 +106,9 @@
     font-weight: bold;
     border-radius: 50px;
     cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
+    transition:
+      background 0.3s,
+      transform 0.3s;
     border: none;
     display: block;
     margin: 20px auto 0 auto; /* Added margin-top for space */

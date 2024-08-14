@@ -1,12 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from '../services/auth.service';
 import { NgIf } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { AuthService } from '../services/auth.service';
 import { MetaAndTitleService } from '../services/meta-and-title.service';
 
 @Component({

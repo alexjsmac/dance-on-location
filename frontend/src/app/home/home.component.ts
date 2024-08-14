@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { MetaAndTitleService } from '../services/meta-and-title.service';
 
 @Component({

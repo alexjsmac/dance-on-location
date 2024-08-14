@@ -1,3 +1,8 @@
+import Player from '@vimeo/player';
+import { Subscription } from 'rxjs';
+
+import { NgIf } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import {
   AfterViewChecked,
   Component,
@@ -6,15 +11,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
-import { NgIf } from '@angular/common';
-import Player from '@vimeo/player';
-
-import { VideoItem } from '../services/video.service';
 import { environment } from '../../environments/environment';
 import { MetaAndTitleService } from '../services/meta-and-title.service';
+import { VideoItem } from '../services/video.service';
 
 interface GpsCoordinates {
   latitude: number;
@@ -51,7 +51,7 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
     );
     if (navigator.geolocation) {
       this.watchPositionId = navigator.geolocation.watchPosition(
-        (position) => {
+        position => {
           const coords = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -63,7 +63,7 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
             this.checkInRange(coords);
           }
         },
-        (error) => {
+        error => {
           console.error('GPS error:', error);
           this.message = 'Failed to get location';
           this.isLoading = false;
@@ -114,7 +114,7 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
         },
       })
       .subscribe({
-        next: (video) => {
+        next: video => {
           if (video && this.videoItem?.id !== video.id) {
             this.videoItem = video;
             this.message = '';
@@ -130,7 +130,7 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
             }
           }
         },
-        error: (error) => {
+        error: error => {
           console.error('HTTP error:', error);
           this.message = 'No videos found';
         },

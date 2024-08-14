@@ -1,9 +1,10 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { ManageComponent } from './manage/manage.component';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',

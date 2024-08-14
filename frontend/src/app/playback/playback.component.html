@@ -5,7 +5,9 @@
 } @else {
   <h2 class="video-title">{{ videoItem.name }}</h2>
   <div class="video-wrapper">
-    <div #vimeoContainer class="vimeo-player-container"></div>
+    <div
+      #vimeoContainer
+      class="vimeo-player-container"></div>
   </div>
   <p class="video-description">{{ videoItem.description }}</p>
   <p class="video-coordinates">Latitude: {{ videoItem.gps_latitude }}</p>
