@@ -1,4 +1,4 @@
-:host {
+.container {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
@@ -7,18 +7,35 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
-.loading-message {
+.loading-message,
+.no-video-message {
   font-size: 1.5em;
   color: #333;
   padding: 50px 0;
+
+  &.no-video-message {
+    color: var(--third-color);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+  }
 }
 
 .video-title {
   font-size: 2em;
   color: var(--third-color);
   margin-bottom: 15px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5em;
+  }
 }
 
 .video-wrapper {
@@ -40,39 +57,17 @@
   }
 }
 
-.video-description {
-  font-size: 1.2em;
-  color: #333;
-  margin-top: 10px;
-  padding-top: 60px;
-}
-
+.video-description,
 .video-coordinates {
   font-size: 1.2em;
   color: #333;
   margin-top: 10px;
-}
 
-.no-video-message {
-  font-size: 1.5em;
-  color: var(--third-color);
-  padding: 50px 0;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 15px;
-  }
-
-  .video-title {
-    font-size: 1.5em;
-  }
-
-  .video-coordinates {
+  @media (max-width: 768px) {
     font-size: 1em;
   }
+}
 
-  .no-video-message {
-    font-size: 1.2em;
-  }
+.video-description {
+  padding-top: 60px;
 }
