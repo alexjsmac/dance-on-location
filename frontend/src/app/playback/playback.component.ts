@@ -1,9 +1,16 @@
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import Player from '@vimeo/player';
 
 import { VideoItem } from '../services/video.service';
 import { environment } from '../../environments/environment';
@@ -18,25 +25,20 @@ interface GpsCoordinates {
   standalone: true,
   imports: [NgIf],
   templateUrl: './playback.component.html',
-  styleUrl: './playback.component.css',
+  styleUrls: ['./playback.component.css'],
 })
-export class PlaybackComponent implements OnInit, OnDestroy {
+export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
   videoItem: VideoItem | null = null;
   message = 'Getting location...';
   isLoading = true;
+  isPlaying: boolean = false; // Track if video is currently playing
+  @ViewChild('vimeoContainer') vimeoContainer!: ElementRef;
   private apiUrl = environment.apiUrl;
   private watchPositionId?: number;
   private httpSubscription?: Subscription;
+  private vimeoPlayer?: Player; // Vimeo player instance
 
-  constructor(
-    protected sanitizer: DomSanitizer,
-    private http: HttpClient,
-  ) {}
-
-  // Generate the Vimeo embed URL
-  getVimeoEmbedUrl(vimeoId: string): string {
-    return `https://player.vimeo.com/video/${vimeoId}`;
-  }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     if (navigator.geolocation) {
@@ -47,7 +49,11 @@ export class PlaybackComponent implements OnInit, OnDestroy {
             longitude: position.coords.longitude,
           };
           this.isLoading = false;
-          this.checkInRange(coords);
+
+          // Check if the video is playing
+          if (!this.isPlaying) {
+            this.checkInRange(coords);
+          }
         },
         (error) => {
           console.error('GPS error:', error);
@@ -67,12 +73,27 @@ export class PlaybackComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewChecked() {
+    // Check if the Vimeo container is available and not yet initialized
+    if (
+      this.vimeoContainer &&
+      this.videoItem &&
+      !this.vimeoPlayer &&
+      this.videoItem.vimeo_id
+    ) {
+      this.initializeVimeoPlayer(this.videoItem.vimeo_id);
+    }
+  }
+
   ngOnDestroy() {
     if (this.watchPositionId) {
       navigator.geolocation.clearWatch(this.watchPositionId);
     }
     if (this.httpSubscription) {
       this.httpSubscription.unsubscribe();
+    }
+    if (this.vimeoPlayer) {
+      this.vimeoPlayer.destroy();
     }
   }
 
@@ -86,14 +107,19 @@ export class PlaybackComponent implements OnInit, OnDestroy {
       })
       .subscribe({
         next: (video) => {
-          if (video) {
-            if (this.videoItem?.id !== video.id) {
-              this.videoItem = video;
-              this.message = '';
+          if (video && this.videoItem?.id !== video.id) {
+            this.videoItem = video;
+            this.message = '';
+            if (this.vimeoContainer) {
+              this.initializeVimeoPlayer(video.vimeo_id);
             }
-          } else {
+          } else if (!video) {
             this.videoItem = null;
             this.message = 'No videos found';
+            this.isPlaying = false;
+            if (this.vimeoPlayer) {
+              this.vimeoPlayer.destroy();
+            }
           }
         },
         error: (error) => {
@@ -101,5 +127,33 @@ export class PlaybackComponent implements OnInit, OnDestroy {
           this.message = 'No videos found';
         },
       });
+  }
+
+  private initializeVimeoPlayer(vimeoId: string) {
+    if (this.vimeoPlayer) {
+      this.vimeoPlayer.destroy();
+    }
+
+    this.vimeoPlayer = new Player(this.vimeoContainer!.nativeElement, {
+      id: Number(vimeoId),
+      responsive: true,
+      byline: false,
+      playsinline: false,
+      portrait: false,
+      title: false,
+      pip: false,
+    });
+
+    this.vimeoPlayer.on('play', () => {
+      this.isPlaying = true;
+    });
+
+    this.vimeoPlayer.on('pause', () => {
+      this.isPlaying = false;
+    });
+
+    this.vimeoPlayer.on('ended', () => {
+      this.isPlaying = false;
+    });
   }
 }

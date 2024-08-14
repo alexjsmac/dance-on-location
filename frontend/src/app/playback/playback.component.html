@@ -5,13 +5,9 @@
 } @else {
   <h2 class="video-title">{{ videoItem.name }}</h2>
   <div class="video-wrapper">
-    <iframe
-      [src]="sanitizer.bypassSecurityTrustResourceUrl(getVimeoEmbedUrl(videoItem.vimeo_id))"
-      allow="fullscreen"
-      class="vimeo-player">
-    </iframe>
+    <div #vimeoContainer class="vimeo-player-container"></div>
   </div>
-  <p class="video-coordinates">{{ videoItem.description }}</p>
+  <p class="video-description">{{ videoItem.description }}</p>
   <p class="video-coordinates">Latitude: {{ videoItem.gps_latitude }}</p>
   <p class="video-coordinates">Longitude: {{ videoItem.gps_longitude }}</p>
 }
