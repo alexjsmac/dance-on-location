@@ -1,0 +1,10 @@
+{
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@angular/(.*)$",
+    "^@app/(.*)$",
+    "^@assets/(.*)$",
+    "^@environments/(.*)$",
+    "^[./]"
+  ]
+}

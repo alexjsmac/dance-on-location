@@ -25,12 +25,12 @@
           </td>
         </ng-template>
         <ng-container *ngIf="video.editable; else viewTemplate">
-          <td><input [(ngModel)]="video.name" class="input" type="text"/></td>
-          <td><input [(ngModel)]="video.description" class="input" type="text"/></td>
-          <td><input [(ngModel)]="video.vimeo_id" class="input" type="text"/></td>
-          <td><input [(ngModel)]="video.gps_latitude" class="input" type="number"/></td>
-          <td><input [(ngModel)]="video.gps_longitude" class="input" type="number"/></td>
-          <td><input [(ngModel)]="video.range" class="input" type="number"/></td>
+          <td><input [(ngModel)]="video.name" class="input" type="text" /></td>
+          <td><input [(ngModel)]="video.description" class="input" type="text" /></td>
+          <td><input [(ngModel)]="video.vimeo_id" class="input" type="text" /></td>
+          <td><input [(ngModel)]="video.gps_latitude" class="input" type="number" /></td>
+          <td><input [(ngModel)]="video.gps_longitude" class="input" type="number" /></td>
+          <td><input [(ngModel)]="video.range" class="input" type="number" /></td>
           <td>
             <button (click)="saveVideo(video, i)" class="action-button save-button">Save</button>
             <button (click)="cancelEdit(video, i)" class="action-button cancel-button">Cancel</button>

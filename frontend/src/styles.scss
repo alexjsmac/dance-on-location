@@ -1,0 +1,73 @@
+:root {
+  --first-color: #fcf9f4;
+  --second-color: #ffc97c;
+  --third-color: #ea7659;
+  --fourth-color: #c1c1c1;
+}
+
+/* Global Font and Background */
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+}
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--first-color); /* Use the first color as a base background */
+  color: #333;
+}
+
+/* Link Styling */
+a {
+  color: var(--third-color); /* Use third color for links */
+  text-decoration: none;
+
+  &:hover {
+    color: var(--fourth-color); /* Use fourth color for hover */
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+button {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--second-color); /* Use second color for buttons */
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+
+  &:hover {
+    background: var(--third-color); /* Use third color on hover */
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background: var(--third-color);
+    transform: scale(1);
+  }
+}
+
+input, select, textarea {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 8px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--second-color); /* Match input focus border with the button color */
+  }
+}

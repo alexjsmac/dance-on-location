@@ -25,7 +25,7 @@ interface GpsCoordinates {
   standalone: true,
   imports: [NgIf],
   templateUrl: './playback.component.html',
-  styleUrls: ['./playback.component.css'],
+  styleUrls: ['./playback.component.scss'],
 })
 export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
   videoItem: VideoItem | null = null;

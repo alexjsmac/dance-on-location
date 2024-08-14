@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './manage.component.html',
   standalone: true,
   imports: [NgForOf, FormsModule, NgIf],
-  styleUrls: ['./manage.component.css'],
+  styleUrls: ['./manage.component.scss'],
 })
 export class ManageComponent implements OnInit {
   videos: VideoItem[] = [];

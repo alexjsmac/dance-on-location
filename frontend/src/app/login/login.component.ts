@@ -13,7 +13,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './login.component.html',
   standalone: true,
   imports: [ReactiveFormsModule, NgIf],
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;

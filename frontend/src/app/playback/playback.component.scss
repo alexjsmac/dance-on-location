@@ -1,8 +1,3 @@
-/* src/app/playback/playback.component.css */
-
---first-color: #fcf9f4;
---third-color: #ea7659;
-
 :host {
   padding: 20px;
   max-width: 800px;
@@ -35,14 +30,14 @@
   height: 0;
   padding-bottom: 56.25%; /* Aspect ratio for 16:9 videos */
   position: relative;
-}
 
-.vimeo-player-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .video-description {
