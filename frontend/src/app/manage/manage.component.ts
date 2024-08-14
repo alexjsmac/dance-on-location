@@ -1,22 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { VideoItem, VideoService } from '../services/video.service';
 import { NgForOf, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { MetaAndTitleService } from '../services/meta-and-title.service';
+import { VideoItem, VideoService } from '../services/video.service';
 
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
   standalone: true,
   imports: [NgForOf, FormsModule, NgIf],
-  styleUrls: ['./manage.component.css'],
+  styleUrls: ['./manage.component.scss'],
 })
 export class ManageComponent implements OnInit {
   videos: VideoItem[] = [];
 
-  constructor(private videoService: VideoService) {}
+  constructor(
+    private videoService: VideoService,
+    private metaAndTitleService: MetaAndTitleService,
+  ) {}
 
   ngOnInit() {
-    this.videoService.getVideos().subscribe((data) => {
+    this.metaAndTitleService.updateTitle('Manage');
+    this.metaAndTitleService.updateDescription(
+      'Manage dance videos offered by Dance on Location.',
+    );
+    this.videoService.getVideos().subscribe((data: VideoItem[]) => {
       this.videos = data;
     });
   }
@@ -36,7 +45,7 @@ export class ManageComponent implements OnInit {
 
   deleteVideo(video: VideoItem) {
     this.videoService.deleteVideo(video).subscribe(() => {
-      this.videos = this.videos.filter((v) => v.id !== video.id);
+      this.videos = this.videos.filter(v => v.id !== video.id);
     });
   }
 

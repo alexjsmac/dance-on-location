@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
@@ -26,16 +28,13 @@ export class VideoService {
     private authService: AuthService,
   ) {}
 
-  getVideos(): Observable<VideoItem[]> {
+  getVideos(): Observable<any> {
     const headers = this.authService.getAuthHeaders();
     return this.http.get<VideoItem[]>(`${this.apiUrl}/videos`, { headers });
   }
 
-  saveVideoEdit(video: VideoItem): Observable<VideoItem[]> {
-    return this.http.put<VideoItem[]>(
-      `${this.apiUrl}/videos/${video.id}`,
-      video,
-    );
+  saveVideoEdit(video: VideoItem): Observable<any> {
+    return this.http.put<VideoItem[]>(`${this.apiUrl}/videos/${video.id}`, video);
   }
 
   addVideo(video: VideoItem) {

@@ -4,13 +4,12 @@ import { ManageComponent } from './manage.component';
 
 describe('ManageComponent', () => {
   let component: ManageComponent;
-  let fixture: ComponentFixture<ManageComponent>;
+  let fixture: ComponentFixture;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ManageComponent]
-    })
-    .compileComponents();
+      imports: [ManageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ManageComponent);
     component = fixture.componentInstance;

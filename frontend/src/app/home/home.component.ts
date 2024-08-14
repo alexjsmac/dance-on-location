@@ -1,17 +1,22 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { MetaAndTitleService } from '../services/meta-and-title.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-  constructor(private router: Router) {}
+export class HomeComponent implements OnInit {
+  constructor(private metaAndTitleService: MetaAndTitleService) {}
 
-  begin() {
-    this.router.navigate(['/playback']);
+  ngOnInit(): void {
+    this.metaAndTitleService.updateTitle('Home');
+    this.metaAndTitleService.updateDescription(
+      'Dance on Location is a web app that lets you view dance videos positioned nearby to your location.',
+    );
   }
 }

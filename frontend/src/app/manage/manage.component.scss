@@ -1,0 +1,125 @@
+.manage-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--first-color);
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    text-align: center;
+    color: var(--third-color);
+    margin-bottom: 20px;
+    font-size: 2.5em;
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      min-width: 600px;
+      table-layout: fixed;
+
+      th,
+      td {
+        padding: 10px 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--fourth-color);
+        font-size: 1.2em;
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      th {
+        background-color: var(--second-color);
+        color: #333;
+      }
+
+      td {
+        background-color: var(--first-color);
+        color: #333;
+      }
+
+      tr:hover td {
+        background-color: var(--third-color);
+      }
+    }
+  }
+
+  .input {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+  }
+
+  .action-button {
+    padding: 8px 12px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition:
+      background 0.3s,
+      transform 0.3s;
+    border: none;
+    margin-right: 5px;
+
+    &.edit-button {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    &.delete-button {
+      background-color: #f44336;
+      color: white;
+    }
+
+    &.save-button {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    &.cancel-button {
+      background-color: #f44336;
+      color: white;
+    }
+  }
+
+  .add-button {
+    background-color: var(--second-color);
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition:
+      background 0.3s,
+      transform 0.3s;
+    border: none;
+    display: block;
+    margin: 20px auto 0 auto; /* Added margin-top for space */
+
+    &:hover {
+      background-color: var(--third-color);
+    }
+
+    &:active {
+      background-color: #ea7659;
+      transform: scale(1);
+    }
+  }
+}

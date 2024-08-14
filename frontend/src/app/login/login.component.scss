@@ -1,0 +1,45 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--first-color);
+  color: #333;
+  text-align: center;
+
+  h2 {
+    font-size: 2.5em;
+    color: var(--third-color);
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+
+    label {
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      display: block;
+      color: #333;
+    }
+
+    input {
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #333;
+      padding: 10px;
+      border-radius: 5px;
+      width: 100%;
+    }
+  }
+
+  .error-message {
+    margin-top: 20px;
+    color: var(--third-color);
+    font-size: 1.1em;
+  }
+}
