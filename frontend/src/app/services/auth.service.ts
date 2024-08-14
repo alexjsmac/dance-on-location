@@ -1,4 +1,4 @@
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  private loginError: string | null = null;
+  private loginError: string | undefined;
 
   constructor(
     private http: HttpClient,
@@ -26,7 +26,7 @@ export class AuthService {
       })
       .pipe(
         tap((response) => this.handleLoginSuccess(response)),
-        catchError((error) => this.handleLoginError(error))
+        catchError((error) => this.handleLoginError(error)),
       );
   }
 
@@ -43,7 +43,7 @@ export class AuthService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  getLoginError(): string | null {
+  getLoginError(): string | undefined {
     return this.loginError;
   }
 
@@ -58,8 +58,9 @@ export class AuthService {
     this.router.navigate(['/manage']);
   }
 
-  private async handleLoginError(error: any): Promise<void> {
+  private handleLoginError(error: any): Observable<never> {
     this.loginError =
       error?.error?.error || 'Login failed due to an unknown error';
+    return throwError(() => new Error(this.loginError));
   }
 }

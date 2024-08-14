@@ -17,7 +17,7 @@ import { NgIf } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  errorMessage: string | null = null;
+  errorMessage: string | undefined;
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
