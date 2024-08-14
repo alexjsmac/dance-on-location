@@ -14,6 +14,7 @@ import Player from '@vimeo/player';
 
 import { VideoItem } from '../services/video.service';
 import { environment } from '../../environments/environment';
+import { MetaAndTitleService } from '../services/meta-and-title.service';
 
 interface GpsCoordinates {
   latitude: number;
@@ -38,9 +39,16 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
   private httpSubscription?: Subscription;
   private vimeoPlayer?: Player; // Vimeo player instance
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private metaAndTitleService: MetaAndTitleService,
+  ) {}
 
   ngOnInit() {
+    this.metaAndTitleService.updateTitle('Playback');
+    this.metaAndTitleService.updateDescription(
+      'Watch dance videos positioned nearby to your location.',
+    );
     if (navigator.geolocation) {
       this.watchPositionId = navigator.geolocation.watchPosition(
         (position) => {

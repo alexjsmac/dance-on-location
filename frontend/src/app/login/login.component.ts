@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { NgIf } from '@angular/common';
+import { MetaAndTitleService } from '../services/meta-and-title.service';
 
 @Component({
   selector: 'app-login',
@@ -22,14 +23,17 @@ export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
 
-  constructor() {
+  constructor(private metaAndTitleService: MetaAndTitleService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.metaAndTitleService.updateTitle('Login');
+    this.metaAndTitleService.updateDescription('Login to the admin account.');
+  }
 
   login() {
     if (this.loginForm.valid) {

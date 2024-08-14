@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VideoItem, VideoService } from '../services/video.service';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MetaAndTitleService } from '../services/meta-and-title.service';
 
 @Component({
   selector: 'app-manage',
@@ -13,9 +14,16 @@ import { FormsModule } from '@angular/forms';
 export class ManageComponent implements OnInit {
   videos: VideoItem[] = [];
 
-  constructor(private videoService: VideoService) {}
+  constructor(
+    private videoService: VideoService,
+    private metaAndTitleService: MetaAndTitleService,
+  ) {}
 
   ngOnInit() {
+    this.metaAndTitleService.updateTitle('Manage');
+    this.metaAndTitleService.updateDescription(
+      'Manage dance videos offered by Dance on Location.',
+    );
     this.videoService.getVideos().subscribe((data) => {
       this.videos = data;
     });

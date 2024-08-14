@@ -8,20 +8,17 @@ import { ManageComponent } from './manage/manage.component';
 import { PlaybackComponent } from './playback/playback.component';
 
 export const routes: Routes = [
-  { path: '', title: 'Dance on Location | Home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   {
     path: 'playback',
-    title: 'Dance on Location | Playback',
     component: PlaybackComponent,
   },
   {
     path: 'login',
-    title: 'Dance on Location | Login',
     component: LoginComponent,
   },
   {
     path: 'manage',
-    title: 'Dance on Location | Manage',
     component: ManageComponent,
     canActivate: [AuthGuard],
   },
