@@ -65,7 +65,11 @@ export class PlaybackComponent implements OnInit, OnDestroy, AfterViewChecked {
         },
         error => {
           console.error('GPS error:', error);
-          this.message = 'Failed to get location';
+          this.message =
+            'Failed to get location! ' +
+            'Please ensure location services are enabled on your device and ' +
+            'you have allowed this site to access your location data. If all ' +
+            'else fails, try an incognito window or a different web browser.';
           this.isLoading = false;
         },
         {
